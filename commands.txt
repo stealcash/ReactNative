@@ -1,0 +1,36 @@
+supportive docu
+https://medium.com/geekculture/react-native-generate-apk-debug-and-release-apk-4e9981a2ea51
+or
+https://reactnative.dev/docs/signed-apk-android - no need for java
+
+1. change name and variable
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res    
+cd android
+
+Adding Keystore to your project by pase in android/apk
+add 
+ release {
+      storeFile file('your_key_name.keystore')
+      storePassword 'your_key_store_password'
+      keyAlias 'your_key_alias'
+      keyPassword 'your_key_file_alias_password'
+    }
+
+    in signingConfigs object
+
+    add 
+                signingConfig signingConfigs.release
+
+in  buildTypes {
+        release {
+
+            #to generate abb file 
+            cd android
+./gradlew bundleRelease
+
+#to generate apk file
+./gradlew assembleRelease
+found in parth - android/app/build/outputs/apk/app-release.apk
+
+
+
